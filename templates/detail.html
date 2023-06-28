@@ -1,0 +1,104 @@
+{% extends 'base.html' %} {% block content %} {% load hitcount_tags %}
+
+<div class="container">
+  <!--Path: posts.html-->
+
+  <!--NAVIGATION-->
+  <div class="navigate">
+    <span><a href="{% url 'home' %}">MyForum - Forums</a> >>
+      <a href="{{post.categories.all.0.get_url}}">{{post.categories.all.0}}</a>
+      >> <a href="{{post.get_url}}">{{post.title}}</a></span
+    >
+  </div>
+
+  <!--TOPIC SECTION-->
+  <div class="topic-container">
+    <!--THREAD-->
+    <div class="head">
+      <div class="authors">Author</div>
+      <div class="content">
+        Topic: {{post.title}} (Read {% get_hit_count for post %} times)
+      </div>
+    </div>
+
+    <div class="body">
+      <div class="authors">
+        <div class="username"><a href="#">{{post.user.fullname|title}}</a></div>
+        <div>Role</div>
+        <img src="{{post.user.profile_pic.url}}" alt="" />
+        <div>Posts : <u>45</u></div>
+        <div>Karma: <u>3600</u></div>
+      </div>
+
+      <div class="content">
+        {{post.content|safe}}
+        <br />
+        <div class="comment">
+          <button onclick="showComment()">Comment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--comment area-->
+  <div class="comment-area hide" id="comment-area">
+    <textarea name="comment" id="" placeholder="Leave a comment...."></textarea>
+    <input type="submit" name="" id="" value="Submit" />
+  </div>
+  <!--showComment-->
+
+  {% for comment in post.comments.all %}
+  <!--COMMENT SECTION-->
+  <div class="comments-container">
+    <div class="body">
+      <div class="authors">
+        <div class="username">
+          <a href="#">{{comment.user.fullname|title}}</a>
+        </div>
+        <div>Role</div>
+        <img src="{{comment.user.profile_pic.url}}" alt="" />
+        <div>Posts : <u>{{comment.user.num_posts}}</u></div>
+        <div>Karma: <u>{{comment.user.karma}}</u></div>
+      </div>
+
+      <div class="content">
+        {{comment.content|safe}}
+        <br />
+        <div class="comment">
+          <button onclick="showReply()">Reply</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--reply area-->
+
+  <div class="comment-area hide" id="reply-area">
+    <textarea name="comment" id="" placeholder="Leave a reply...."></textarea>
+    <input type="submit" name="" id="" value="Submit" />
+  </div>
+
+  {% for reply in comments.replies.all %}
+  <!--Reply SECTION-->
+  <div class="comments-container" style="width: 95%; margin-left: 5%">
+    <div class="body">
+      <div class="authors">
+        <div class="username">
+          <a href="#">{{reply.user.fullname|title}}</a>
+        </div>
+        <div>Role</div>
+        <img src="{{reply.user.profile_pic.url}}" alt="" />
+        <div>Posts : <u>{{reply.user.num_posts}}</u></div>
+        <div>Karma: <u>{{reply.user.karma}}</u></div>
+      </div>
+
+      <div class="content">
+        {{reply.content|safe}}
+        <br />
+      </div>
+    </div>
+  </div>
+  {%endfor%} {% endfor %}
+
+  <!--end-->
+</div>
+{% endblock %}

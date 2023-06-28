@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forum</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    {% comment %}
+    <link rel="stylesheet" href="style.css" />
+    {% endcomment %}
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital@1&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="navbar">
+        <nav class="navigation hide" id="navigation">
+          <ul class="nav-list">
+            <span class="close-icon" onclick="showIconBar()"
+              ><i class="fa fa-close"></i
+            ></span>
+            <li class="nav-item">
+              <a href="{% url 'home' %}">Home</a>
+            </li>
+            {% if request.user.is_authenticated %}
+            <li class="nav-item">
+              <a href="{% url 'logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a href="{% url 'signup' %}">Signup</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'signin' %}">Signin</a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
+        <a href="#" class="bar-icon" id="iconBar" onclick="hideIconBar()"
+          ><i class="fa fa-bars"></i
+        ></a>
+        <div class="brand">my4um</div>
+        {% if user.is_authenticated %}
+        <div style="font-size: 50px; font-weight: 300px; margin-left: 100px">
+          <a href="{% url 'create_post'%}">+</a>
+        </div>
+        {% endif %}
+      </div>
+      <!--Search Box-->
+      <div class="search-box">
+        <div>
+          <select name="" id="">
+            <option value="everything">All</option>
+            <!--All instead of everything is recognised as french-->
+            <option value="titles">Titles</option>
+            <option value="descriptions">Descriptions</option>
+          </select>
+          <input type="text" name="q" id="" placeholder="search..." />
+          <button><i class="fa fa-search"></i></button>
+        </div>
+      </div>
+    </header>
+    {% block content %}{% endblock content %}
+    <footer>
+      <div class="footer">
+        <div class="footer-column">
+          <h1>©️ 2023 my4um</h1>
+          <p>Copyrights reversed</p>
+        </div>
+        <div class="footer-bottom">
+          &copy; my4um.com | Designed by
+          <a
+            href="https://instagram.com/straight_lussac?igshid=NTc4MTIwNjQ2YQ=="
+            >Harsh Vardhan</a
+          >
+        </div>
+      </div>
+    </footer>
+    <script src="{% static 'main.js' %}"></script>
+  </body>
+</html>

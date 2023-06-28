@@ -1,0 +1,65 @@
+{% extends 'base.html' %} {% block content %} {% load hitcount_tags %}
+
+<div class="container">
+  <!--Path: posts.html-->
+  <div class="navigate">
+    <span
+      ><a href="{% url 'home' %}">MyForum - Forums</a> >>
+      <a href="{{forum.get_url}}">{{forum.title}}</a></span
+    >
+  </div>
+  <!--Display posts table-->
+  <div class="posts-table">
+    <div class="table-head">
+      <div class="status">Status</div>
+      <div class="subjects">Subjects</div>
+      <div class="replies">Replies/Views</div>
+      <div class="last-reply">Last Reply</div>
+    </div>
+    <!--1st post-->
+    {% for post in posts %}
+    <div class="table-row">
+      <div class="status"><i class="fa fa-frown-o"></i></div>
+      <br />
+      <div class="subjects">
+        <a href="post.get_url">{{post.title}}</a>
+        <br />
+        <span
+          >Started by <b><a href="">{{post.user.fullname|title}}</a></b> .</span
+        >
+      </div>
+      <div class="replies">
+        {{ post.num_comments }} comments <br />
+        {% get_hit_count for post %} views
+      </div>
+
+      <div class="last-reply">
+        {% if post.last_reply %} {{post.last_reply.date|date}}
+        <br />by <b><a href="">{{post.last_reply.user.fullname|title}}</a></b>
+        {% else %}
+        <span
+          ><b><a href="">No replies</a></b></span
+        >
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+    <!--end-->
+  </div>
+</div>
+
+<div class="note">
+  <span><i class="fa fa-frown-o"></i>&nbsp; Low Engagement</span
+  >&nbsp;&nbsp;&nbsp;<a href=""><i class="fa fa-share-square"></i></a><br />
+  <span><i class="fa fa-fire"></i>&nbsp; Hot</span>&nbsp;&nbsp;&nbsp;<a href=""
+    ><i class="fa fa-share-square"></i></a
+  ><br />
+  <span><i class="fa fa-rocket"></i>&nbsp; Controversial</span
+  >&nbsp;&nbsp;&nbsp;<a href=""><i class="fa fa-share-square"></i></a><br />
+  <span><i class="fa fa-lock"></i>&nbsp; Locked </span>&nbsp;&nbsp;&nbsp;<a
+    href=""
+    ><i class="fa fa-share-square"></i></a
+  ><br />
+</div>
+
+{% endblock content %}
