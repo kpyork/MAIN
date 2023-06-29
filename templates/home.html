@@ -36,11 +36,19 @@
     My Forum - Stats &nbsp;<i class="fa fa-bar-chart"></i>
   </div>
   <div>
-    <span><u>8,712</u> Posts in <u>3065</u> topics </span> <br />
+    <span><u>{{num_posts}}</u> Posts in <u>{{num_categories}}</u> topics </span>
+    <br />
     <span>
-      Latest Post: <b><a href="#">me at the zoo</a></b> by
-      <a href="#">javed09</a></span
+      Latest Post:
+      <b><a href="{{last_post.get_url}}">{{last_post.title}}</a></b> on
+      {{last_post.date|date}} by
+      <a href="last_post.user.get_url"
+        >{{last_post.user.fullname | title}}</a
+      ></span
     >
+    <br />
+    <span>Check <a href="{%url 'latest_posts'%}">latest posts</a>. </span>
+    <br />
   </div>
 </div>
 

@@ -81,10 +81,10 @@ class Post(models.Model):
     approved = models.BooleanField(default=False)
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk', related_query_name='hit_count_generic_relation')
     tags = TaggableManager()
-    # comments = models.ManyToManyField(Comment, blank=True)
-    # closed = models.BooleanField(default=False)
-    # state = models.CharField(max_length=40, default="zero")
-
+    comments = models.ManyToManyField(Comment, blank=True)
+    closed = models.BooleanField(default=False)
+    state = models.CharField(max_length=40, default="zero")
+    
     def __str__(self):
         return self.title
 
@@ -102,3 +102,4 @@ class Post(models.Model):
     @property
     def last_reply(self):
         return self.comments.latest("date")
+    

@@ -19,7 +19,7 @@ function showComment(){
     commentArea.setAttribute("style", "display: block;");
 }
 
-function showReply(){
-    var replyArea = document.getElementById("reply-area");
-    replyArea.setAttribute("style", "display: block;");
+function showReplies(id){
+    var replyArea = document.getElementById(id);
+    replyArea.classList.remove("hide");
 }

@@ -5,7 +5,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Forum</title>
+    <title>{{title}}</title>
     <link rel="stylesheet" href="{% static 'style.css' %}" />
     {% comment %}
     <link rel="stylesheet" href="style.css" />
@@ -56,18 +56,24 @@
         {% endif %}
       </div>
       <!--Search Box-->
-      <div class="search-box">
-        <div>
-          <select name="" id="">
-            <option value="everything">All</option>
-            <!--All instead of everything is recognised as french-->
-            <option value="titles">Titles</option>
-            <option value="descriptions">Descriptions</option>
-          </select>
-          <input type="text" name="q" id="" placeholder="search..." />
-          <button><i class="fa fa-search"></i></button>
+      <form action="{% url 'search_result' %}" role="form" method="GET">
+        {% csrf_token %}
+        <div class="search-box">
+          <div>
+            <select name="" id="">
+              <option value="everything">All</option>
+              <!--All instead of everything is recognised as french-->
+              <option value="titles">Titles</option>
+              <option value="descriptions">Descriptions</option>
+            </select>
+            <input type="text" name="q" id="" placeholder="search..." />
+            <button type="submit" name="search">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
         </div>
-      </div>
+      </form>
+      <!--end-->
     </header>
     {% block content %}{% endblock content %}
     <footer>
